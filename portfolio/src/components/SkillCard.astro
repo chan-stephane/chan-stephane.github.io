@@ -1,0 +1,51 @@
+---
+import { Icon } from "astro-icon/components";
+const {title, description, url} =
+  Astro.props;
+var icon_list = {
+  'AWS':'mdi:aws',
+  'Docker':'mdi:docker',
+  'Python':'mdi:language-python',
+  'JavaScript':'mdi:language-javascript',
+  'Postgresql':'carbon:database-postgresql',
+  'ElasticSearch':'carbon:database-elastic',
+  'MongoDB':'carbon:database-mongodb',
+  'Linux':'mdi:linux',
+  'Mysql':'carbon:mysql',
+  'Php':'mdi:language-php',
+};
+var iconValue = null;
+if (icon_list.hasOwnProperty(title)) {
+    iconValue = icon_list[title];
+}
+---
+
+<div class="card card-compact card-bordered border border-[oklch(var(--s))] w-full md:w-112 lg:w-128 hover:shadow-lg transition-all my-4">
+  <div class="card-body">
+    <div class="grid grid-cols-3 gap-4 mb-2">
+      <div class="self-start col-span-2 justify-self-start text-left">
+        <h1 class="uppercase card-title font-extrabold tracking-tighter md:text-2xl">
+          {iconValue && (<Icon name={iconValue} class="w-8 h-8 mr" />
+          )}{title}</h1>
+      </div>
+
+
+      <div class="self-center justify-self-end">
+        <a href={url} target="_blank" class="link link-hover text-sm text-right flex justify-center items-center">
+          {title}
+          {url !== "#" && <Icon name="carbon:link" class="w-4 h-4 ml-2" />}
+        </a>
+      </div>
+
+    </div>
+
+    <div class="grid grid-cols-3 gap-4 place-items-center">
+      <div class="self-start col-span-2 justify-self-start text-left">
+        <article class="prose">
+          <Fragment set:html={description}></Fragment>
+        </article>
+      </div>
+
+    </div>
+  </div>
+</div>
