@@ -2,7 +2,10 @@
 import { Icon } from "astro-icon/components";
 const {title, description, url} =
   Astro.props;
-var icon_list = {
+type IconList = {
+  [key: string]: string; // Key is string, value is string
+};
+var icon_list:IconList = {
   'AWS':'mdi:aws',
   'Docker':'mdi:docker',
   'Python':'mdi:language-python',
