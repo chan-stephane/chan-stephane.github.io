@@ -9,7 +9,7 @@ const skills = await Astro.glob("../pages/skills/*.md");
 const projects = await Astro.glob("../pages/projects/*.md");
 const certificates = await Astro.glob("../pages/certificates/*.md");
 const contact = await Astro.glob("../pages/contact/*.md");
-const PDF = "/cv-20240219.pdf";
+const pdf = await Astro.glob("../pages/pdf/*.md");
 ---
 
 <div class="join join-vertical gap-1">
@@ -68,29 +68,21 @@ const PDF = "/cv-20240219.pdf";
   </AccordionLayout>
 
 
-  <!-- <AccordionLayout title={"Files"} icon={"carbon:volume-file-storage"}>
-    <div class="flex justify-center w-full">
-      <div
-        class="card card-compact card-bordered border-[oklch(var(--p))] w-96 md:w-112 lg:w-128 hover:shadow-lg transition-all"
-      >
-        <figure>
-          <object data={PDF} type="application/pdf" width="100%"></object>
-        </figure>
-        <div class="card-body">
-          <h2 class="card-title">Resume</h2>
-          <p>View and download my resume by clicking on the button below</p>
-          <div class="card-actions justify-end">
-            <a target="_blank" href={PDF}>
-              <button class="btn btn-outline">
-                <p>Download resume</p>
-                <Icon name="carbon:document-pdf" class="w-6 h-6 ml-1" />
-              </button>
-            </a>
-          </div>
-        </div>
-      </div>
+  <AccordionLayout title={"Want my CV ?"} icon={"mdi:card-account-details-outline"}>
+    <div class="flex flex-wrap content-around gap-4 justify-center">
+      {
+        pdf.map((item) => {
+          return (
+            <ContactCard
+              url={item.frontmatter.url}
+              url_name={item.frontmatter.title}
+              icon={item.frontmatter.icon}
+            />
+          );
+        })
+      }
     </div>
-  </AccordionLayout> -->
+  </AccordionLayout>
 
   <AccordionLayout title={"Contact"} icon={"mdi:badge-account-horizontal-outline"}>
     <div class="flex flex-wrap content-around gap-4 justify-center">
