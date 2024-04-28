@@ -26,6 +26,7 @@ import { Icon } from "astro-icon/components";
     <title>Stéphane CHAN HIOU KONG</title>
   </head>
   <body class="flex flex-col min-h-screen">
+    <div id="cursor"></div>
     <Header />
     <div
       class="flex items-center absolute top-4 right-4 md:top-6 md:right-6 lg:top-8 lg:right-8 xl:top-10 xl:right-10 z-10"
@@ -55,6 +56,35 @@ import { Icon } from "astro-icon/components";
     <Footer class="flex justify-center items-center py-4" />
   </body>
 </html>
+<script>
+  function moveCircleCursor(x: number, y: number) {
+    const theme = document.documentElement.getAttribute("data-theme");
+    const cursor_width = 30;
+    const cursor_height = 30;
+    x = x - (cursor_width/2);
+    y = y - (cursor_height/2);
+    const cursor : HTMLDivElement = document.getElementById('cursor') as HTMLDivElement;
+    const color_back = (theme=='black') ? "#fff" : '#000'
+    const color_int = (theme=='black') ? '255' : '000';
+    cursor.style.position = 'absolute';
+    cursor.style.left = `${x}px`;
+    cursor.style.top = `${y}px`;
+    cursor.style.width = `${cursor_width}px`;
+    cursor.style.height = `${cursor_height}px`;
+    cursor.style.borderRadius = `50%`;
+    cursor.style.borderColor = (theme === 'black') ? "#000" : '#fff';
+    cursor.style.boxShadow = `0 0 10px 5px rgba(${color_int}, ${color_int}, ${color_int}, 1)`;
+    cursor.style.borderWidth = '13px';
+    cursor.style.opacity = '0.5';
+    cursor.style.background = color_back;
+  }
+
+  window.addEventListener('mousemove', (e: MouseEvent) => {
+    const x = e.clientX;
+    const y = e.clientY;
+    moveCircleCursor(x, y);
+  });
+</script>
 
 <style is:global>
   body {
