@@ -15,7 +15,8 @@ const pdf = await Astro.glob("../pages/pdf/*.md");
 <div class="join join-vertical gap-1">
   <AccordionLayout title={"About"} icon={"carbon:user-profile"}>
     <article class="prose text-justify">
-      <Fragment set:html={about.compiledContent()} />
+      <p id="about"></p>
+      
     </article>
   </AccordionLayout>
 
@@ -100,3 +101,40 @@ const pdf = await Astro.glob("../pages/pdf/*.md");
     </div>
   </AccordionLayout>
 </div>
+
+<script>
+import * as about from "../pages/about/about.md";
+
+const aboutText: string = about.rawContent();
+const textElement: HTMLParagraphElement = document.getElementById("about") as HTMLParagraphElement;
+let index: number = 0;
+let timeoutId: number | null = null;
+function typeWriter(): void {
+  if (index < aboutText.length) {
+    textElement.textContent += aboutText.charAt(index);
+    index++;
+    timeoutId = setTimeout(typeWriter, 50) as unknown as number;
+  } else {
+    timeoutId && clearTimeout(timeoutId);
+    timeoutId = null;
+  }
+}
+
+const aboutAccordionCheckbox: HTMLInputElement = document.querySelector("input[aria-label='About']") as HTMLInputElement;
+aboutAccordionCheckbox?.addEventListener("click", function () {
+  const is_open = this.checked;
+  if (is_open) {
+    typeWriter();
+  } else {
+    textElement.textContent = "";
+    index = 0;
+    timeoutId && clearTimeout(timeoutId);
+    timeoutId = null;
+  }
+});
+
+if (aboutAccordionCheckbox?.checked) {
+  typeWriter();
+}
+
+</script>

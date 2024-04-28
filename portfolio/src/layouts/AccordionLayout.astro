@@ -1,11 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
 import BaseLayout from "./BaseLayout.astro";
-const { title, icon } = Astro.props;
+const { title, icon ,content_id} = Astro.props;
 ---
 
 <BaseLayout>
-  <div class="collapse collapse-arrow">
+  <div class="collapse collapse-arrow" id={content_id}>
     <input aria-label={title} type="checkbox"/>
     <div class="collapse-title font-extrabold tracking-tight md:text-2xl">
       <div class="flex">
